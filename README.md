@@ -16,10 +16,12 @@ This example covers the following :
 #std-boot(Eureka client)
 #school-boot(Eureka client)
 
-#Test URLs :
-Eureka server : http://localhost:8761/
-student service : http://localhost:8082/rest/student/
-school service : http://localhost:8081/rest/school/student/<student_id>
-Via Proxy(Zull)
-student service : http://localhost:8080/student-service/rest/student/
-school service : http://localhost:8080/school-service/rest/school/student/<student_id>
+#Test URLs (direct):
+1. Eureka server : http://localhost:8761/
+2. student service : http://localhost:8082/rest/student/
+3. school service : http://localhost:8081/rest/school/student/<student_id>
+
+#Test URLs(Via Proxy(Zull))
+
+1. student service : http://localhost:8080/student-service/rest/student/
+2. school service : http://localhost:8080/school-service/rest/school/student/<student_id>
