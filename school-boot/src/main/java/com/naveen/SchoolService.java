@@ -3,6 +3,8 @@ package com.naveen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,20 +20,37 @@ class SchoolService {
 	@Autowired
 	private EurekaClient eurekaClient;
 
+	@Autowired
+	private LoadBalancerClient loadBalancer;
+
 	@RequestMapping(value = "/student/{id}")
 	public Student getStudent(@PathVariable String id) throws Exception {
 
 		Student student;
-		// Get all ServiceInstances associated with a serviceId
-		// 'STUDENT-SERVICE'
-		InstanceInfo studentService = serviceInstancesByApplicationName("STUDENT-SERVICE");
-		if (studentService != null) {
-			log.info("Service discovery <STUDENT-SERVICE>");
-			String url = "http://"+studentService.getHostName()+":"+studentService.getPort()+ "/rest/student/" + id;
+		String url = null;
+
+		// via edge server Ribbon(LoadBalancer)
+		ServiceInstance edgeServer = loadBalancer.choose("EDGE-SERVER");
+		if (edgeServer != null) {
+			url = "http://" + edgeServer.getHost() + ":" + edgeServer.getPort() + "/student-service/rest/student/" + id;
+			log.info("Edge Server discovered, calling stdent service via proxy");
+
+		} else {
+			// direct calling
+			ServiceInstance stdInstance = loadBalancer.choose("STUDENT-SERVICE");
+			log.info("Edge Server not discovered, calling stdent service  directly");
+
+			if (stdInstance != null) {
+				url = "http://" + stdInstance.getHost() + ":" + stdInstance.getPort() + "/rest/student/" + id;
+			} else {
+				throw new Exception("STUDENT-SERVICE  not found");
+			}
+		}
+		if (url != null) {
 			RestTemplate template = new RestTemplate();
 			student = template.getForObject(url, Student.class);
 		} else {
-			throw new Exception("STUDENT-SERVICE  not found");
+			throw new Exception("Bad Url");
 		}
 		return student;
 	}
