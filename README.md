@@ -21,7 +21,7 @@ This example covers the following :
 2. student service : http://localhost:8082/rest/student/
 3. school service : http://localhost:8081/rest/school/student/<student_id>
 
-#Test URLs(Via Proxy(Zull))
+#Test URLs(Via Proxy(Zuul))
 
 1. student service : http://localhost:8080/student-service/rest/student/
 2. school service : http://localhost:8080/school-service/rest/school/student/<student_id>
