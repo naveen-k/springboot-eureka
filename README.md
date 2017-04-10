@@ -1,20 +1,15 @@
 # springboot-eureka-zuul
 
-This is the source code for the blog post
+In this project we will start to look at how we can implement the model using Spring Cloud and Netflix OSS. From the operations model we will cover the core parts: service discovery, dynamic routing, load balancing and to some extend an edge server.
+
+To support the business services we use the following infrastructure services and components (blue boxes):
+1. Service Discovery Server (Netflix Eureka)
+2. Dynamic Routing and Load Balancer (Netflix Ribbon)
+3. Edge Server (Netflix Zuul)
 
 This example covers the following :
-
-1. Setup Edge server(Zuul)
-2. Setup Eureka server
-3. Service Registering: Eureka Clients
-4. Service Discovery: Eureka Clients
-3. Inter service communication  
-
-
-#gateway-boot
-#eureka-boot
-#std-boot(Eureka client)
-#school-boot(Eureka client)
+1. Edge server(Zuul):#gateway-boot
+2. Eureka server: #eureka-boot
 
 #Test URLs (direct):
 1. Eureka server : http://localhost:8761/
