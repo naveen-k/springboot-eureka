@@ -8,7 +8,7 @@ To support the business services we use the following infrastructure services an
 3. Edge Server (Netflix Zuul)#eureka-boot
 
 # Build instruction 
-1. Maven 
+<project_root_dir>mvn spring-boot:run
 
 #Test URLs (direct):
 1. Eureka server : http://localhost:8761/
