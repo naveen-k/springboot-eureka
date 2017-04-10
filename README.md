@@ -7,15 +7,17 @@ To support the business services we use the following infrastructure services an
 2. Dynamic Routing and Load Balancer (Netflix Ribbon)
 3. Edge Server (Netflix Zuul)#eureka-boot
 
-# Build instruction 
+# Build and Test instruction 
 <project_root_dir>mvn spring-boot:run
 
-#Test URLs (direct):
+## Test URLs (direct):
 1. Eureka server : http://localhost:8761/
 2. student service : http://localhost:8082/rest/student/
 3. school service : http://localhost:8081/rest/school/student/<student_id>
 
-#Test URLs(Via Proxy(Zuul))
+## Test URLs(Via Proxy(Zuul))
 
 1. student service : http://localhost:8080/student-service/rest/student/
 2. school service : http://localhost:8080/school-service/rest/school/student/<student_id>
+
+
